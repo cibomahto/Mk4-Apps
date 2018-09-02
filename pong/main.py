@@ -65,6 +65,12 @@ class Paddle():
                 self.previousX = self.x
                 self.x -= self.moveSpeed
 
+        if self.x + self.width/2 > SCREEN_WIDTH:
+            self.x = SCREEN_WIDTH - self.width/2
+
+        if self.x -self.width/2 < 0:
+            self.x = self.width/2
+
 class Ball():
     size = 10
 
@@ -137,6 +143,8 @@ def one_round():
     ugfx.clear(bgColor)
     ugfx.backlight(100)
 
+    ugfx.set_default_font(ugfx.FONT_TITLE)
+
     while True:
         topPaddle.update()
         bottomPaddle.update()
@@ -156,7 +164,12 @@ def one_round():
         for i in range(0,7):
             ugfx.area(int(i*2*SCREEN_WIDTH/13), int(SCREEN_HEIGHT/2-1), int(SCREEN_WIDTH/13), 3, netColor)
 
-        time.sleep_ms(10)
+        ugfx.orientation(0)
+        ugfx.text(130, 0, "%d " % (points[0]),netColor)
+        ugfx.text(170, 0, "%d " % (points[1]),netColor)
+        ugfx.orientation(270)
+
+        time.sleep_ms(1)
 
 minScore = 9
 
@@ -176,23 +189,23 @@ while playing:
 
     ugfx.orientation(90)
     ugfx.set_default_font(ugfx.FONT_TITLE)
-    ugfx.text(30, 138, "GAME ",0xFFFF)
-    ugfx.text(30, 158, "OVER ",0xFFFF)
+    ugfx.text(30, 138, "GAME ",ballColor)
+    ugfx.text(30, 158, "OVER ",ballColor)
 
     ugfx.set_default_font(ugfx.FONT_SMALL)
-    ugfx.text(70, 220, "Score: %d - %d " % (points[0], points[1]), 0xFFFF)
-    ugfx.text(36, 260, "Press A to play again ", 0xFFFF)
-    ugfx.text(40, 280, "Press MENU to quit " , 0xFFFF)
+    ugfx.text(70, 220, "Score: %d - %d " % (points[0], points[1]), ballColor)
+    ugfx.text(36, 260, "Press A to play again ", ballColor)
+    ugfx.text(40, 280, "Press MENU to quit " , ballColor)
 
     ugfx.orientation(270)
     ugfx.set_default_font(ugfx.FONT_TITLE)
-    ugfx.text(30, 138, "GAME ",0xFFFF)
-    ugfx.text(30, 158, "OVER ",0xFFFF)
+    ugfx.text(30, 138, "GAME ",ballColor)
+    ugfx.text(30, 158, "OVER ",ballColor)
 
     ugfx.set_default_font(ugfx.FONT_SMALL)
-    ugfx.text(70, 220, "Score: %d - %d " % (points[1], points[0]), 0xFFFF)
-    ugfx.text(36, 260, "Press A to play again ", 0xFFFF)
-    ugfx.text(40, 280, "Press MENU to quit " , 0xFFFF)
+    ugfx.text(70, 220, "Score: %d - %d " % (points[1], points[0]), ballColor)
+    ugfx.text(36, 260, "Press A to play again ", ballColor)
+    ugfx.text(40, 280, "Press MENU to quit ", ballColor)
 
     while True:
         sleep.wfi()
