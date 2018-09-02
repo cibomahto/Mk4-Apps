@@ -27,6 +27,7 @@ def settings_startup_app(state):
     apps = app.get_apps()
     print(apps)
     selection = prompt_option([{"title": a.title, "app": a} for a in apps], text="Select App:", none_text="Back", title="Set startup app")
+
     if selection:
        app.write_launch_file(selection["app"].name, "default_app.txt")
 
